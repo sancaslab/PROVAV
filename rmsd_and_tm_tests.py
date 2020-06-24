@@ -1,8 +1,8 @@
 import unittest
 import warnings
-from PDB_reader import PDB_reader
 from root_mean_squared_deviation_and_tm import root_mean_squared_deviation, tm_score
 from Bio.PDB.PDBExceptions import PDBConstructionWarning
+from proteinStructure import proteinStructure
 
 
 # It's normal to get a lot of variations from these files -> for that we omit deprecation and constructing warning
@@ -15,8 +15,8 @@ class RMSD_Test_Case(unittest.TestCase):
     # High number of atoms variation -> this may add changes
     def test_CKHB_CKHM(self):
         warnings.filterwarnings("ignore", category=PDBConstructionWarning)
-        structure_x = PDB_reader("3b6r", "PDB_proteins_files/3b6r.pdb").read()
-        structure_y = PDB_reader("1i0e", "PDB_proteins_files/1i0e.pdb").read()
+        structure_x = proteinStructure("3b6r", "PDB_proteins_files/3b6r.pdb")
+        structure_y = proteinStructure("1i0e", "PDB_proteins_files/1i0e.pdb")
         rmsd = root_mean_squared_deviation(structure_x, structure_y).compare_rmsd_models()
         res = False
         # pyMol = 92.95 -> Same type of proteins, same specialized function in different places,
@@ -32,8 +32,8 @@ class RMSD_Test_Case(unittest.TestCase):
     # mammalian proteins that share a highly conserved structure
     def test_2KPA_2KPB(self):
         warnings.filterwarnings("ignore", category=PDBConstructionWarning)
-        structure_x = PDB_reader("2kpa", "PDB_proteins_files/2kpa.pdb").read()
-        structure_y = PDB_reader("2kpb", "PDB_proteins_files/2kpb.pdb").read()
+        structure_x = proteinStructure("2kpa", "PDB_proteins_files/2kpa.pdb")
+        structure_y = proteinStructure("2kpb", "PDB_proteins_files/2kpb.pdb")
         rmsd = root_mean_squared_deviation(structure_x, structure_y).compare_rmsd_models()
         res = False
         # pyMol = 3.46
@@ -48,8 +48,8 @@ class RMSD_Test_Case(unittest.TestCase):
     # Isoforms of Adenylyl cyclase bound to protein G
     def test_ACG1_ACG2(self):
         warnings.filterwarnings("ignore", category=PDBConstructionWarning)
-        structure_x = PDB_reader("6r3q", "PDB_proteins_files/6r3q.pdb").read()
-        structure_y = PDB_reader("6r4o", "PDB_proteins_files/6r4o.pdb").read()
+        structure_x = proteinStructure("6r3q", "PDB_proteins_files/6r3q.pdb")
+        structure_y = proteinStructure("6r4o", "PDB_proteins_files/6r4o.pdb")
         rmsd = root_mean_squared_deviation(structure_x, structure_y).compare_rmsd_models()
         res = False
         # pyMol = 1.61
